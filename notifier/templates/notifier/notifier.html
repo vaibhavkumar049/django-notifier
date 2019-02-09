@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>
+            Notif
+        </title>
+    </head>
+    <body>
+        Notifer
+        <p>Notifications</p>
+        <ul id= "notify"></ul>
+        <script>
+            var chatsocket = new WebSocket('ws://'+window.location.host);
+            const n = document.querySelector('#notify');
+            chatsocket.onopen = function(e){
+                console.log('Opened',e)
+            }
+
+            chatsocket.onmessage = function(e){
+                console.log('response',e);
+
+                
+                    var e1 = document.createElement("li");
+                    e1.innerHTML = `New user <b> ${e['username']}</b> has joined`;
+                    n.appendChild(e1);
+
+                  
+         }
+            chatsocket.onclose = function(e){
+                console.log("closed",e)
+            }
+        </script>
+    </body>
+</html>

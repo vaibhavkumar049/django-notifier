@@ -31,12 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
+    'notifier',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 ]
 
 MIDDLEWARE = [
@@ -68,6 +71,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'channels_example.wsgi.application'
+
+ASGI_APPLICATION = 'channels_example.routing.application'
 
 
 # Database
@@ -118,3 +123,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CHANNEL_LAYERS = {
+    'default' :{
+        'BACKEND' : 'channels_redis.core.RedisChannelLayer',
+        'CONFIG':{
+            "hosts" : [('127.0.0.1',6379)],
+        },
+    },
+}
